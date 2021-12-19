@@ -1,0 +1,85 @@
+﻿@model WeddingAnniversary.Areas.User.Models.Invitation
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="center">
+    <h1>Edit Invitation</h1>
+
+    <br />
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <label class="hidden" id="invId">@Model.Id</label>
+            <label class="hidden" id="user">@User.Identity.Name"</label>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display: none;" class="form-group">
+                <label asp-for="OwnerEmail" class="control-label">OwnerEmail</label>
+                <input asp-for="OwnerEmail" id="OwnerEmail" class="form-control" value="@User.Identity.Name" />
+                <span asp-validation-for="OwnerEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeddingName" class="control-label">Wedding Name</label>
+                <input asp-for="WeddingName" id="WeddingName" value="@Model.WeddingName" class="form-control" />
+                <span asp-validation-for="WeddingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvitationIntro" class="control-label">Introduction</label>
+                <input asp-for="InvitationIntro" id="InvitationIntro" value="@Model.InvitationIntro" class="form-control" />
+                <span asp-validation-for="InvitationIntro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OurStory" class="control-label">Body/Story</label>
+                <input asp-for="OurStory" id="OurStory" value="@Model.OurStory" class="form-control" />
+                <span asp-validation-for="OurStory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Venue" class="control-label">Venue</label>
+                <input asp-for="Venue" id="Venue" value="@Model.Venue" class="form-control" />
+                <span asp-validation-for="Venue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VenueLocation" class="control-label">Venue Location</label>
+                <input asp-for="VenueLocation" id="VenueLocation" value="@Model.VenueLocation" class="form-control" />
+                <span asp-validation-for="VenueLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VenueWebsite" class="control-label">Venue Website</label>
+                <input asp-for="VenueWebsite" id="VenueWebsite" value="@Model.VenueWebsite" class="form-control" />
+                <span asp-validation-for="VenueWebsite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeddingDate" class="control-label">Wedding Date</label>
+                <label id="weddingDate" class="hidden">@Model.WeddingDate"</label>
+                <input type="date" asp-for="WeddingDate" asp-format="{0:yyyy-MM-dd}" id="WeddingDate" value="@Model.WeddingDate" class="form-control" />
+                <span asp-validation-for="WeddingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RSVPDate" class="control-label">RSVP Date</label>
+                <label id="rsvpDate" class="hidden">"@Model.RSVPDate</label>
+                <input type="date" asp-for="RSVPDate" asp-format="{0:yyyy-MM-dd}" id="RSVPDate" value="@Model.RSVPDate" class="form-control" />
+                <span asp-validation-for="RSVPDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" for="Note" class="control-label"><input type="checkbox" onchange="document.getElementById('NotesContainer').classList.toggle('hidden')" name="Note" id="Note">&nbsp;Add Note(s)</label>
+                <div class="hidden" id="NotesContainer">
+                    <p>Notes &emsp;&emsp;&emsp;&emsp;&emsp; <a style="cursor:pointer;" id="AddNote">Add<strong>+</strong></a></p>
+                    <ul id="NotesOnly">
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" id="EditBtn" value="Save Changes" class="btn btn-primary">&emsp;
+                <a class="btn btn-secondary" href="/User/Invitations/ViewInvitation/@Model.Id">Back to Invitation</a>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/editInvitation.js"></script>
+}

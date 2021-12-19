@@ -1,0 +1,85 @@
+﻿@model WeddingAnniversary.Areas.User.Models.Invitation
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="center">
+<h1>Create Invitation</h1>
+
+<br />
+<hr />
+<div class="row">
+    <div class="col-md-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div style="display: none;" class="form-group">
+                <label asp-for="OwnerEmail" class="control-label">OwnerEmail</label>
+                <input asp-for="OwnerEmail" id="OwnerEmail" class="form-control" value="@User.Identity.Name" />
+                <span asp-validation-for="OwnerEmail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeddingName" class="control-label">Wedding Name</label>
+                <input asp-for="WeddingName" id="WeddingName" class="form-control" />
+                <span asp-validation-for="WeddingName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="InvitationIntro" class="control-label">Introduction</label>
+                <input asp-for="InvitationIntro" id="InvitationIntro" class="form-control" />
+                <span asp-validation-for="InvitationIntro" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="OurStory" class="control-label">Body/Story</label>
+                <input asp-for="OurStory" id="OurStory" class="form-control" />
+                <span asp-validation-for="OurStory" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Venue" class="control-label">Venue</label>
+                <input asp-for="Venue" id="Venue" class="form-control" />
+                <span asp-validation-for="Venue" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VenueLocation" class="control-label">Venue Location</label>
+                <input asp-for="VenueLocation" id="VenueLocation" class="form-control" />
+                <span asp-validation-for="VenueLocation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VenueWebsite" class="control-label">Venue Website</label>
+                <input asp-for="VenueWebsite" id="VenueWebsite" class="form-control" />
+                <span asp-validation-for="VenueWebsite" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeddingDate" class="control-label">Wedding Date</label>
+                <input type="date" asp-for="WeddingDate" id="WeddingDate" class="form-control" />
+                <span asp-validation-for="WeddingDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RSVPDate" class="control-label">RSVP Date</label>
+                <input type="date" asp-for="RSVPDate" id="RSVPDate" class="form-control" />
+                <span asp-validation-for="RSVPDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Note" for="Note" class="control-label"><input type="checkbox" onchange="document.getElementById('NotesContainer').classList.toggle('hidden')" name="Note" id="Note">&nbsp;Add Note(s)</label>
+                <div class="hidden" id="NotesContainer">
+                    <p>Notes &emsp;&emsp;&emsp;&emsp;&emsp; <a style="cursor:pointer;" id="AddNote">Add<strong>+</strong></a></p>
+                    <ul id="NotesOnly">
+                        <li><input type="text" value="" class="note" placeholder="Note" /></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" id="CreateBtn" value="Create" class="btn btn-primary">
+            </div>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" href="/User/Invitations/ViewSingle?UserName=@User.Identity.Name">Back to List</a>
+</div>
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/createInvitation.js"></script>
+}

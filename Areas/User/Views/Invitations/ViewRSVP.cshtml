@@ -1,0 +1,69 @@
+﻿@model WeddingAnniversary.Areas.User.Models.Guest
+
+@{
+    ViewData["Title"] = "ViewRSVP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>RSVP</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label">Name</label>
+                <input asp-for="Name" id="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label">Surname</label>
+                <input asp-for="Surname" id="Surname" class="form-control" />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email (Optional)</label>
+                <input asp-for="Email" id="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group hidden">
+                <label class="guestId" id="GuestID">@Model.GuestListId</label>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlusOne" for="PlusOne" class="control-label"><input type="checkbox" onchange="document.getElementById('PlusContainer').classList.toggle('hidden')" name="PlusOne" id="PlusOne">&nbsp;Add a Plus One</label>
+                <div class="hidden" id="PlusContainer">
+                    <ul>
+                        <li> 
+                            <div class="form-group">
+                                <label asp-for="PlusOneName" class="control-label">Plus One Name</label>
+                                <input asp-for="PlusOneName" id="PlusOneName" class="form-control" />
+                                <span asp-validation-for="PlusOneName" class="text-danger"></span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="form-group">
+                                <label asp-for="PlusOneSurname" class="control-label">Plus One Surname</label>
+                                <input asp-for="PlusOneSurname" id="PlusOneSurname" class="form-control" />
+                                <span asp-validation-for="PlusOneSurname" class="text-danger"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+           
+            
+            <div class="form-group flowleft">
+                <a id="CreateBtn" class="btn btn-primary text-white">I will be there!</a> &nbsp;&nbsp;&nbsp; <a id="DeclineBtn" class="btn btn-danger text-white">I will unfortunately not be able to make it</a> 
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a style="cursor:pointer;" class="btn btn-secondary backToInv">Back to Invitation</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/createRSVP.js"></script>
+}

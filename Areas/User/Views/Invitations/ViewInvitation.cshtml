@@ -1,0 +1,61 @@
+﻿@model WeddingAnniversary.Areas.User.Models.Invitation
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "View Invitation";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="center">
+    <label class="hidden" id="ownerEmail">@Model.OwnerEmail</label>
+    <label class="hidden" id="loggedMail">@User.Identity.Name</label>
+
+    <h1>You have been invited to the @Model.WeddingName wedding</h1>
+    <br />
+    <p>@Model.InvitationIntro</p>
+    <p>@Model.OurStory</p>
+    <div class="form-group hidden">
+        <label class="invId" id="invId">@Model.Id</label>
+    </div>
+    <p>
+        Wedding Date: @Model.WeddingDate.ToLongDateString()
+    </p>
+    <p>
+        RSVP Date: @Model.RSVPDate.ToLongDateString()
+    </p>
+    <p>
+        Venue Information:
+        <ul>
+            <li>Name: @Model.Venue</li>
+            @if (!string.IsNullOrWhiteSpace(@Model.VenueWebsite))
+            {
+                <li>Website: <a href="@Model.VenueWebsite">@Model.VenueWebsite</a></li>
+
+            }
+            @if (!string.IsNullOrWhiteSpace(@Model.VenueLocation))
+            {
+                <li>Location: @Model.VenueLocation</li>
+
+            }
+        </ul>
+    </p>
+    <label>Notes:</label>
+    <div id="NoteListContainer"><ul><label>No notes found</label></ul></div>
+    <ul id="SchedContainer">
+    </ul>
+    <div style="max-width: 100%; min-width: 100%;"><span><label style="max-width: 40%; min-width: 40%;">Guestlist:</label></span><label style="max-width: 30%; min-width: 30%; ">&emsp;</label><span><label style="max-width: 30%; min-width: 30%; " class="center" id="GuestCount"></label></span></div>
+    <div id="GuestListContainer"><ul><label>No RSVPs yet</label></ul></div>
+    <a id="viewRSVP" class="btn btn-secondary" href="#">Click here to RSVP!</a>
+    <a id="copy" class="btn btn-info" href="#">Copy link to Clipboard</a>
+    @if (User.Identity.Name == Model.OwnerEmail)
+    {
+        <a id="edit" onclick="editPage(@Model.Id, @User.Identity.Name)" class="btn btn-light" href="#">Edit Page</a>
+    }
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/viewInvitation.js"></script>
+}
